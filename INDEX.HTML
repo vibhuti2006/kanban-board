@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanaban Board</title>
+
+    <script src="https://kit.fontawesome.com/589957875e.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    body{
+        margin: 0%;
+        padding: 0%;
+    }
+
+    /* NAVBAR TOOLBOX */
+    .toolbox-cont{
+        width: 100%;
+        height: 5rem;
+        background-color: #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .toolbox-priority-cont{
+        display: flex;
+        gap: 1rem;
+        margin-left: 20rem;
+        background-color: #565252;
+        padding: 0.5rem;
+        border-radius: 1rem;
+    }
+
+    .color{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+     .color:hover{
+        transform: scale(1.08);
+        transition: all 0.2s ease-in-out;
+     }
+
+    .lightpink{
+        background-color: lightpink;
+    }
+  
+
+    .lightgreen{
+        background-color: lightgreen;
+    }
+  
+
+    .lightblue{
+        background-color: lightblue;
+    }
+   
+
+    .black{
+        background-color: black;
+    }
+    
+    .deselect-filter{
+        margin-right: 28rem;
+        font-size: 1.7rem;
+        color: #565252;
+        cursor: pointer;
+    }
+
+
+    .action-btn-cont{
+        display: flex;
+        gap: 1rem;
+        margin-right: 35rem;
+        background-color: #565252;
+        padding: 0.85rem;
+        border-radius: 1rem;
+    }
+    .add-btn{
+        cursor: pointer;
+        color: white;
+    }
+    .add-btn:hover{
+        color: rgb(226, 230, 33);
+    }
+    .remove-btn{
+        cursor: pointer;
+        color: white;
+    }
+    .light-mode{
+        cursor: pointer;
+        color: white;
+    }
+
+
+    /* TASK TICKET */
+    .main-cont{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        gap: 2rem;
+        /* border: 2px solid black; */
+    }
+    
+    .ticket-cont{
+        border-radius: 1rem ;
+        width: 18rem;
+        height: 14rem;
+        overflow: hidden;
+    }
+    .ticket-color{
+        width: 100%;
+        height: 1.5rem;
+        background-color: lightpink;
+    }
+    .ticket-id{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 2rem;
+        background-color: rgb(238, 222, 52);
+        font-weight: bolder;
+        
+    }
+    .task-area{
+        display: flex;
+        font-weight: bold;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height:9rem;
+        background-color: rgb(237, 112, 81);
+        cursor: pointer;
+    }
+    .ticket-lock{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        height: 1.5rem;
+        background-color: rgb(237, 112, 81);
+    }
+    .lock{
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+
+    /* MODAL TASK AREA */
+    .modal-cont{
+        display: none; 
+        position: absolute;
+        top: 30vh;
+        left: 30vw;
+        right: 30vw;
+        width: 40rem;
+        height: 20rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    .textArea-cont{
+        width: 70%;
+        resize: none;
+        background-color: rgb(219, 241, 241);
+    }
+    .priority-colors-container{
+        height: 100%;
+        width: 30%;
+        background-color: #333;
+        display: flex;
+        flex-direction: column;
+    }
+    .priority-color{
+        background-color: #565252;
+        height: 2rem;
+        width: 4rem;
+        margin-left: auto;
+        margin-right: auto;
+         margin-top: 0.6rem;
+        cursor: pointer;
+        border-radius: 0.4rem;
+    }
+    .lightpink{
+        background-color: lightpink;
+    }
+    .lightgreen{
+        background-color: lightgreen;
+    }
+    .lightblue{
+        background-color: lightblue;
+    }
+    .black{
+        background-color: black;
+    }
+    .priority-color:hover{
+        border: 2px solid rgb(240, 208, 25);;
+    }
+
+    .active{
+        border: 2px solid rgb(240, 208, 25);
+    }
+
+
+</style>
+<body>
+    
+       <!-- Toolbox (Navbar) -->
+    <div class="toolbox-cont">
+        <div class="toolbox-priority-cont">
+            <div class="lightpink color"></div>
+            <div class="lightgreen color"></div>
+            <div class="lightblue color"></div>
+            <div class="black color"></div>
+        </div>
+        <div class="deselect-filter">
+            <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+
+        <div class="action-btn-cont">
+
+            <div class="add-btn">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+
+           <div class="remove-btn">
+                <i class="fa-solid fa-trash"></i>
+           </div>
+
+           <div class="light-mode">
+                <i class="fa-regular fa-moon"></i>
+           </div>
+        </div>
+    </div>
+
+
+    <!-- Task Ticket -->
+
+    <div class="main-cont">
+         <!-- <div class="ticket-cont">
+             <div class="ticket-color"></div>
+             <div class="ticket-id">12345</div>
+             <div class="task-area" contenteditable="false">Random Task</div>
+              <div class="ticket-lock">
+                <i class="fa-solid fa-lock lock"></i>
+              </div>
+         </div> -->
+         
+    </div>
+
+
+    <!-- Modal Task Area -->
+
+    <div class="modal-cont">
+
+        <textarea class="textArea-cont" placeholder="Enter Your Task">
+
+        </textarea>
+
+        <div class="priority-colors-container">
+            <div class="lightpink priority-color"></div>
+            <div class="lightgreen priority-color"></div>
+            <div class="lightblue priority-color"></div>
+            <div class="black priority-color "></div>
+        </div>
+
+
+    </div>
+    <script src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"></script>
+   <script src="./script.js"></script>
+
+
+</body>
+</html>
